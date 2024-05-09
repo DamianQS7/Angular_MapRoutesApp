@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { MapService } from '@services/map.service';
 import { PlacesService } from '@services/places.service';
 import { Map, Marker, Popup } from 'mapbox-gl';
 
@@ -10,6 +11,7 @@ import { Map, Marker, Popup } from 'mapbox-gl';
 export class MapViewComponent implements AfterViewInit {
   
   private placesService: PlacesService = inject(PlacesService);
+  private mapService: MapService = inject(MapService);
 
   @ViewChild('mapDiv')
   public mapDivElement!: ElementRef;
@@ -21,7 +23,7 @@ export class MapViewComponent implements AfterViewInit {
     const map = new Map({
       container: this.mapDivElement.nativeElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: [-74.5, 40], // starting position [lng, lat]
+      center: this.placesService.userLocation, // starting position [lng, lat]
       zoom: 13, // starting zoom
     });
 
@@ -34,5 +36,7 @@ export class MapViewComponent implements AfterViewInit {
     .setLngLat(this.placesService.userLocation)
     .setPopup(popup)
     .addTo(map);
+
+    this.mapService.setMap(map);
   }
 }
