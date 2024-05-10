@@ -1,6 +1,10 @@
 <div class="outer">
     <div class="inner">
-        <input type="text" placeholder="Search " />
+        <input 
+            type="text" 
+            placeholder="Search " 
+            #txtQuery
+            (keyup)="onQueryChanged(txtQuery.value)"/>
         <search-results />
     </div>    
 </div>

@@ -13,6 +13,7 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { environment } from '../../environments/environment.development';
 
 import mapboxgl from 'mapbox-gl';
+import { HttpClientModule } from '@angular/common/http';
 (mapboxgl as any).accessToken = environment.MAPBOX_KEY;
 
 @NgModule({
@@ -26,7 +27,8 @@ import mapboxgl from 'mapbox-gl';
     SearchResultsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [MapPageComponent]
 })
